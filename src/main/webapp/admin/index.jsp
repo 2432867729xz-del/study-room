@@ -73,6 +73,11 @@
             <div class="title">预约记录</div>
             <div class="desc">查看所有用户的预约和签到记录</div>
         </a>
+        <a class="nav-card" href="<%= request.getContextPath() %>/admin/users">
+            <div class="icon">&#128100;</div>
+            <div class="title">用户管理</div>
+            <div class="desc">查看所有注册用户及预约情况</div>
+        </a>
     </div>
 </div>
 </body>
