@@ -19,6 +19,16 @@
 <p>当前用户：${sessionScope.loginUser.name}
     <a href="${pageContext.request.contextPath}/login.jsp">退出登录</a></p>
 
+<%-- 操作结果提示：新增/删除后显示成功或失败 --%>
+<c:if test="${not empty msg}">
+    <p style="color:${msg.contains('成功') ? 'green' : 'red'}; font-weight: bold;">${msg}</p>
+</c:if>
+
+<%-- 空座位列表提示 --%>
+<c:if test="${empty seatList}">
+    <p style="color:#888;">暂无座位，请使用上方表单添加。</p>
+</c:if>
+
 <%-- 加座位表单：POST 到 /seat/add --%>
 <div class="add-form">
     <h3>新增座位</h3>
@@ -46,8 +56,11 @@
                 ${seat.status == 0 ? '空闲' : '已预约'}
             </td>
             <td>
-                <a class="btn-del" href="${pageContext.request.contextPath}/seat/delete?id=${seat.id}"
-                   onclick="return confirm('确定删除座位 ${seat.seatNo} 吗？')">删除</a>
+                <%-- 删除必须用POST表单（修改数据库操作），GET链接不会触发doPost --%>
+                <form action="${pageContext.request.contextPath}/seat/delete" method="post" style="display:inline;">
+                    <input type="hidden" name="id" value="${seat.id}">
+                    <button type="submit" class="btn-del" onclick="return confirm('确定删除座位 ${seat.seatNo} 吗？')">删除</button>
+                </form>
             </td>
         </tr>
     </c:forEach>

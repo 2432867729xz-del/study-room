@@ -87,4 +87,46 @@ public class SeatDao {
         }
         return false;
     }
+
+    // 检查该座位是否有预约记录（删除前调用，防止外键约束导致删除失败）
+    public boolean hasReservation(int seatId) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            pstmt = conn.prepareStatement("SELECT COUNT(*) FROM reservation WHERE seat_id = ?");
+            pstmt.setInt(1, seatId);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.close(conn, pstmt, rs);
+        }
+        return false;
+    }
+
+    // 检查座位号是否已存在（新增前调用，防止重复添加）
+    public boolean existsBySeatNo(String seatNo) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            pstmt = conn.prepareStatement("SELECT COUNT(*) FROM seat WHERE seat_no = ?");
+            pstmt.setString(1, seatNo);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.close(conn, pstmt, rs);
+        }
+        return false;
+    }
 }

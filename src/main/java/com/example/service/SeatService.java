@@ -28,4 +28,14 @@ public class SeatService {
     public boolean updateStatus(int seatId, int status) {
         return seatDao.updateStatus(seatId, status);
     }
+
+    // 检查该座位是否有预约记录（删除前调用）
+    public boolean hasReservation(int seatId) {
+        return seatDao.hasReservation(seatId);
+    }
+
+    // 检查座位号是否已存在（新增前调用）
+    public boolean existsBySeatNo(String seatNo) {
+        return seatDao.existsBySeatNo(seatNo);
+    }
 }

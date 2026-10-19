@@ -18,6 +18,16 @@
 <p>当前用户：${sessionScope.loginUser.name}（${sessionScope.loginUser.username}）
     <a href="${pageContext.request.contextPath}/login.jsp">退出登录</a></p>
 
+<%-- 操作结果提示 --%>
+<c:if test="${not empty msg}">
+    <p style="color:${msg.contains('成功') ? 'green' : 'red'}; font-weight: bold;">${msg}</p>
+</c:if>
+
+<%-- 空座位列表提示 --%>
+<c:if test="${empty seatList}">
+    <p style="color:#888;">暂无座位，请联系管理员添加。</p>
+</c:if>
+
 <table>
     <tr>
         <th>座位编号</th>
