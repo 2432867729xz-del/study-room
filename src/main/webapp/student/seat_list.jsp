@@ -16,6 +16,7 @@
 <body>
 <h2>自习室座位列表</h2>
 <p>当前用户：${sessionScope.loginUser.name}（${sessionScope.loginUser.username}）
+    <a href="${pageContext.request.contextPath}/student/index.jsp">返回首页</a> |
     <a href="${pageContext.request.contextPath}/logout">退出登录</a></p>
 
 <%-- 操作结果提示 --%>
