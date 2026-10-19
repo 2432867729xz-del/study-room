@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("loginUser", user);
             // 根据角色跳不同首页
             if ("admin".equals(user.getRole())) {
-                resp.sendRedirect(req.getContextPath() + "/admin/index.jsp");
+                resp.sendRedirect(req.getContextPath() + "/admin/dashboard");
             } else {
                 resp.sendRedirect(req.getContextPath() + "/student/index.jsp");
             }

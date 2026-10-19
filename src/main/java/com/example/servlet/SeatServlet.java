@@ -23,6 +23,14 @@ public class SeatServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         String path = req.getPathInfo(); // 例如 /list 或 /admin
 
+        // 删除座位（JSP里用<a>链接发的是GET）
+        if ("/delete".equals(path)) {
+            int id = Integer.parseInt(req.getParameter("id"));
+            seatService.deleteById(id);
+            resp.sendRedirect(req.getContextPath() + "/seat/admin");
+            return;
+        }
+
         List<Seat> seatList = seatService.findAll();
         req.setAttribute("seatList", seatList);
 
