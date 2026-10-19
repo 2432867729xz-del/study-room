@@ -24,7 +24,7 @@
     <h2>选择预约日期与时段</h2>
     <c:if test="${empty seat}">
         <div class="error">未找到该座位，请返回重试</div>
-        <div class="back"><a href="${pageContext.request.contextPath}/student/seat_list.jsp">返回座位列表</a></div>
+        <div class="back"><a href="${pageContext.request.contextPath}/seat/list">返回座位列表</a></div>
     </c:if>
     <c:if test="${not empty seat}">
         <div class="seat-info">座位：<strong>${seat.room} ${seat.seatNo}</strong></div>
@@ -42,7 +42,7 @@
             </div>
             <button type="submit" class="btn">确认预约</button>
         </form>
-        <div class="back"><a href="${pageContext.request.contextPath}/student/seat_list.jsp">返回座位列表</a></div>
+        <div class="back"><a href="${pageContext.request.contextPath}/seat/list">返回座位列表</a></div>
     </c:if>
 </div>
 </body>
