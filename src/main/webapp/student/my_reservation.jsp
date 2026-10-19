@@ -29,7 +29,7 @@
 <div class="container">
     <div class="nav">
         <a href="${pageContext.request.contextPath}/student/index.jsp">首页</a>
-        <a href="${pageContext.request.contextPath}/student/seat_list.jsp">座位预约</a>
+        <a href="${pageContext.request.contextPath}/seat/list">座位预约</a>
     </div>
     <h2>我的预约</h2>
     <% if (request.getParameter("msg") != null) { %>
@@ -39,7 +39,7 @@
     <div class="error"><%= request.getAttribute("error") %></div>
     <% } %>
     <c:if test="${empty reservations}">
-        <div class="empty">暂无预约记录，去<a href="${pageContext.request.contextPath}/student/seat_list.jsp">座位列表</a>预约吧</div>
+        <div class="empty">暂无预约记录，去<a href="${pageContext.request.contextPath}/seat/list">座位列表</a>预约吧</div>
     </c:if>
     <c:if test="${not empty reservations}">
         <table>
