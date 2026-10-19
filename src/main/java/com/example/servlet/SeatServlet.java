@@ -1,6 +1,7 @@
 package com.example.servlet;
 
 import com.example.bean.Seat;
+import com.example.bean.User;
 import com.example.service.SeatService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,25 +19,25 @@ public class SeatServlet extends HttpServlet {
     private SeatService seatService = new SeatService();
 
     // GET：查所有座位，学生端和管理员端共用（按路径区分转发页面）
+    // 注意：删除操作统一走 doPost 的 /delete（带预约保护和参数校验），GET 不处理删除，防止绕过校验
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         String path = req.getPathInfo(); // 例如 /list 或 /admin
 
-        // 删除座位（JSP里用<a>链接发的是GET）
-        if ("/delete".equals(path)) {
-            int id = Integer.parseInt(req.getParameter("id"));
-            seatService.deleteById(id);
-            resp.sendRedirect(req.getContextPath() + "/seat/admin");
-            return;
-        }
-
         List<Seat> seatList = seatService.findAll();
         req.setAttribute("seatList", seatList);
 
         if (path != null && path.contains("admin")) {
-            // 管理员端：读取上一次操作的结果提示（session中取一次就删除）
+            // 管理员权限校验：座位管理页只允许 admin 角色访问
+            // （LoginFilter 只拦截 /admin/ 前缀的URI，/seat/admin 需要在这里自己校验）
             HttpSession session = req.getSession();
+            User loginUser = (User) session.getAttribute("loginUser");
+            if (loginUser == null || !"admin".equals(loginUser.getRole())) {
+                resp.sendRedirect(req.getContextPath() + "/student/index.jsp");
+                return;
+            }
+            // 读取上一次操作的结果提示（session中取一次就删除）
             String msg = (String) session.getAttribute("msg");
             if (msg != null) {
                 req.setAttribute("msg", msg);
@@ -55,6 +56,13 @@ public class SeatServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         String path = req.getPathInfo();
         HttpSession session = req.getSession();
+
+        // 管理员权限校验：新增/删除座位都是管理员操作，防止学生直接POST绕过
+        User loginUser = (User) session.getAttribute("loginUser");
+        if (loginUser == null || !"admin".equals(loginUser.getRole())) {
+            resp.sendRedirect(req.getContextPath() + "/student/index.jsp");
+            return;
+        }
 
         if ("/add".equals(path)) {
             // ===== 管理员新增座位 =====

@@ -17,7 +17,7 @@
 <body>
 <h2>座位管理（管理员）</h2>
 <p>当前用户：${sessionScope.loginUser.name}
-    <a href="${pageContext.request.contextPath}/login.jsp">退出登录</a></p>
+    <a href="${pageContext.request.contextPath}/logout">退出登录</a></p>
 
 <%-- 操作结果提示：新增/删除后显示成功或失败 --%>
 <c:if test="${not empty msg}">
