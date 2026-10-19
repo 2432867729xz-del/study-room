@@ -44,12 +44,12 @@
         <p>请选择你要进行的操作</p>
     </div>
     <div class="nav-cards">
-        <a class="nav-card" href="<%= request.getContextPath() %>/student/seat_list.jsp">
+        <a class="nav-card" href="<%= request.getContextPath() %>/seat">
             <div class="icon">&#128188;</div>
             <div class="title">浏览座位</div>
             <div class="desc">查看自习室空位情况，选择座位进行预约</div>
         </a>
-        <a class="nav-card" href="<%= request.getContextPath() %>/student/my_reservation.jsp">
+        <a class="nav-card" href="<%= request.getContextPath() %>/reservation/my">
             <div class="icon">&#128203;</div>
             <div class="title">我的预约</div>
             <div class="desc">查看我的预约记录，进行签到或取消操作</div>

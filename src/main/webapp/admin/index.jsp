@@ -63,12 +63,12 @@
     </div>
 
     <div class="nav-cards">
-        <a class="nav-card" href="<%= request.getContextPath() %>/admin/seat_list.jsp">
+        <a class="nav-card" href="<%= request.getContextPath() %>/seat/admin">
             <div class="icon">&#128188;</div>
             <div class="title">座位管理</div>
             <div class="desc">查看、新增、删除自习室座位</div>
         </a>
-        <a class="nav-card" href="<%= request.getContextPath() %>/admin/reservation_list.jsp">
+        <a class="nav-card" href="<%= request.getContextPath() %>/reservation/admin">
             <div class="icon">&#128203;</div>
             <div class="title">预约记录</div>
             <div class="desc">查看所有用户的预约和签到记录</div>

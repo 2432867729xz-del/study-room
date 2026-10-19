@@ -57,6 +57,11 @@ public class ReservationServlet extends HttpServlet {
             cancel(req, resp, user);
         } else if ("/signin".equals(path)) {
             signin(req, resp, user);
+        } else if ("/admin".equals(path)) {
+            // 管理员查看所有预约记录
+            List<Reservation> list = reservationService.findAll();
+            req.setAttribute("reservations", list);
+            req.getRequestDispatcher("/admin/reservation_list.jsp").forward(req, resp);
         } else if ("/my".equals(path) || path == null) {
             my(req, resp, user);
         } else {
